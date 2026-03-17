@@ -9,7 +9,7 @@ type GradeBody = {
 };
 
 const SYSTEM_PROMPT =
-  "对比原句和翻译，给出 0-100 的评分和简短评价。仅返回 JSON: {score: number, feedback: string}";
+  '对比原句和翻译，给出 0-100 的评分和简短评价。仅返回 "score|feedback" 格式，例如 "89|很好，但是有些地方可以更自然"。';
 const GRADING_TEMPERATURE = 0.2;
 
 function normalizeBaseUrl(apiBase?: string): string {
@@ -20,18 +20,15 @@ function normalizeBaseUrl(apiBase?: string): string {
   return apiBase.trim().replace(/\/+$/, "");
 }
 
-function parseModelResponse(content: string): {
+export function parseModelResponse(content: string): {
   score: number;
   feedback: string;
 } {
   const normalized = content
     .trim()
     .replace(/^```(?:json)?\s*|\s*```$/gi, "");
-  const parsed = JSON.parse(normalized) as {
-    score?: number;
-    feedback?: string;
-  };
-  const score = Number(parsed.score);
+  const [rawScore, ...feedbackParts] = normalized.split("|");
+  const score = Number(rawScore?.trim());
 
   if (!Number.isFinite(score)) {
     throw new Error("Invalid score format");
@@ -39,7 +36,7 @@ function parseModelResponse(content: string): {
 
   return {
     score: Math.max(0, Math.min(100, Math.round(score))),
-    feedback: typeof parsed.feedback === "string" ? parsed.feedback : "",
+    feedback: feedbackParts.join("|").trim(),
   };
 }
 
