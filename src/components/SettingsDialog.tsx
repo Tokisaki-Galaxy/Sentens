@@ -31,6 +31,7 @@ export type Settings = {
   apiKey: string;
   apiBase: string;
   model: string;
+  level: string;
   ttsEnabled: boolean;
   ttsVoiceURI: string;
   ttsRate: number;
@@ -185,6 +186,7 @@ export function SettingsDialog({
           apiKey: imported.apiKey ?? settings.apiKey,
           apiBase: imported.apiBase ?? settings.apiBase,
           model: imported.model ?? settings.model,
+          level: imported.level ?? settings.level,
           ttsEnabled: imported.ttsEnabled ?? settings.ttsEnabled,
           ttsVoiceURI: imported.ttsVoiceURI ?? settings.ttsVoiceURI,
           ttsRate: imported.ttsRate ?? settings.ttsRate,
@@ -349,6 +351,25 @@ export function SettingsDialog({
                   )}
                 </Button>
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">难度级别</label>
+              <select
+                className="h-9 w-full rounded-md border border-border bg-background px-3 text-sm"
+                value={settings.level}
+                onChange={(e) =>
+                  onSettingsChange({ ...settings, level: e.target.value })
+                }
+              >
+                <option value="">自动检测</option>
+                <option value="standard">标准（四级 / 六级）</option>
+                <option value="academic">学术（考研 / 雅思 / 托福）</option>
+                <option value="professional">专业（GRE / CATTI）</option>
+              </select>
+              <p className="text-xs text-muted-foreground">
+                设定后，AI 将按对应档次标准评判；选&ldquo;自动检测&rdquo;则由 AI 自动推断难度。
+              </p>
             </div>
           </TabsContent>
 

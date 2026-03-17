@@ -53,6 +53,7 @@ const defaultSettings: Settings = {
   apiKey: "",
   apiBase: "https://api.openai.com/v1",
   model: "gpt-4o-mini",
+  level: "",
   ttsEnabled: true,
   ttsVoiceURI: "",
   ttsRate: 1.0,
@@ -316,6 +317,7 @@ export default function Home() {
           apiKey: settings.apiKey,
           apiBase: settings.apiBase,
           model: settings.model,
+          level: settings.level,
         }),
       });
 
