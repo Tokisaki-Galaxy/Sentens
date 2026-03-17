@@ -325,16 +325,12 @@ export function SettingsDialog({
                 }
               >
                 <option value="">自动检测</option>
-                <option value="四级">四级 (CET-4)</option>
-                <option value="六级">六级 (CET-6)</option>
-                <option value="考研">考研</option>
-                <option value="雅思">雅思 (IELTS)</option>
-                <option value="托福">托福 (TOEFL)</option>
-                <option value="GRE">GRE</option>
+                <option value="standard">标准（四级 / 六级）</option>
+                <option value="academic">学术（考研 / 雅思 / 托福）</option>
+                <option value="professional">专业（GRE / CATTI）</option>
               </select>
               <p className="text-xs text-muted-foreground">
-                设定后，AI 将按对应学术标准进行严苛评判；选&ldquo;自动检测&rdquo;则由 AI
-                自动推断难度。
+                设定后，AI 将按对应档次标准评判；选&ldquo;自动检测&rdquo;则由 AI 自动推断难度。
               </p>
             </div>
           </TabsContent>
