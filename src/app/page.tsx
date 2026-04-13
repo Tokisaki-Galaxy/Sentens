@@ -528,6 +528,7 @@ export default function Home() {
         sessionId: selectedSessionId!,
         original: sentence.original,
         translation: sentence.translation,
+        referenceTranslation: sentence.referenceTranslation,
         score: sentence.score,
         feedback: sentence.feedback,
         createdAt: Date.now(),
