@@ -343,6 +343,9 @@ export default function Home() {
         sentence.id === id ? { ...sentence, translation } : sentence,
       ),
     );
+
+    // Save translation to database immediately
+    void db.sentences.update(id, { translation });
   }
 
   function cancelPendingScore(id: number) {
